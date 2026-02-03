@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3ae17894f52ac4782da8d5c9eb888c, type: 3}
+  m_Name: ColorsDatabase
+  m_EditorClassIdentifier: Colorfall.Data::ColorsDatabase
+  _colors:
+  - colorName: Red
+    color: {r: 0.9137255, g: 0.08627451, b: 0.1764706, a: 1}
+    inactiveColor: {r: 0.9137255, g: 0.35635293, b: 0.41710904, a: 0.69803923}
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+  - colorName: Orange
+    color: {r: 0.9490196, g: 0.50980395, b: 0, a: 1}
+    inactiveColor: {r: 0.9490196, g: 0.64156866, b: 0.2847059, a: 0.69803923}
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+  - colorName: Yellow
+    color: {r: 1, g: 0.85882354, b: 0.15686275, a: 1}
+    inactiveColor: {r: 1, g: 0.9095814, b: 0.45999998, a: 0.69803923}
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+  - colorName: Green
+    color: {r: 0.12156863, g: 0.72156864, b: 0.09803922, a: 1}
+    inactiveColor: {r: 0.3327384, g: 0.72156864, b: 0.3174902, a: 0.69803923}
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+  - colorName: Cyan
+    color: {r: 0, g: 0.88235295, b: 0.85490197, a: 1}
+    inactiveColor: {r: 0.2647059, g: 0.88235295, b: 0.8631373, a: 0.69803923}
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+  - colorName: Blue
+    color: {r: 0, g: 0.48235294, b: 0.84705883, a: 1}
+    inactiveColor: {r: 0.25411767, g: 0.59176457, b: 0.84705883, a: 0.69803923}
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+  - colorName: Purple
+    color: {r: 0.56078434, g: 0.16862746, b: 0.90588236, a: 1}
+    inactiveColor: {r: 0.68962693, g: 0.44388238, b: 0.90588236, a: 0.69803923}
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+  - colorName: Pink
+    color: {r: 0.9843137, g: 0.30980393, b: 0.8509804, a: 1}
+    inactiveColor: {r: 0.9843137, g: 0.6004314, b: 0.90843004, a: 0.69803923}
+    textColor: {r: 0, g: 0, b: 0, a: 1}

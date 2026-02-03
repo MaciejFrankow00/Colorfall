@@ -1,0 +1,18 @@
+{
+    "name": "Colordall.Gameplay",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4c83c850dcb5ee84e92d453fe5a21473",
+        "GUID:30817c1a0e6d646d99c048fc403f5979",
+        "GUID:52477d658a5b6684fbb27730efebcb37"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
