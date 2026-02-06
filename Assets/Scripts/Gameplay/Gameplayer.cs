@@ -12,6 +12,7 @@ public class Gameplayer : NetworkBehaviour
     public event Action<int> OnCountdownChange;
     public event Action OnGameStart;
     public event Action OnGameStop;
+    public event Action<int> OnRoundChange;
     public event Action<Player> OnWinner;
 
     [Header("Game objects")]
@@ -24,6 +25,7 @@ public class Gameplayer : NetworkBehaviour
     [SerializeField] private int _timeToReset;
 
     private Coroutine _gameCorutine;
+    private int _currentRound = 0;
 
 #if UNITY_EDITOR
     protected override void OnValidate()
@@ -51,6 +53,7 @@ public class Gameplayer : NetworkBehaviour
     [Server]
     public void StartGame()
     {
+        _currentRound = 1;
         _gameCorutine = StartCoroutine(GameLoop());
         RpcSendGameStart();
     }
@@ -61,8 +64,17 @@ public class Gameplayer : NetworkBehaviour
         if(_gameCorutine == null) return;
 
         StopCoroutine(_gameCorutine);
-        RpcRestartTiles();
+        RestartTiles();
         RpcSendGameStop();
+    }
+
+    [Server]
+    private void RestartTiles()
+    {
+        for(int i = 0;i < _tiles.Count; i++)
+        {
+            _tiles[i].Restart();
+        }
     }
 
     [ClientRpc]
@@ -96,12 +108,9 @@ public class Gameplayer : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void RpcRestartTiles()
+    private void RpcSendRoundChange(int round)
     {
-        for(int i = 0;i < _tiles.Count; i++)
-        {
-            _tiles[i].Restart();
-        }
+        OnRoundChange?.Invoke(round);
     }
 
     private IEnumerator GameLoop()
@@ -126,6 +135,9 @@ public class Gameplayer : NetworkBehaviour
             }
 
             yield return new WaitForSeconds(_timeToReset);
+
+            _currentRound++;
+            RpcSendRoundChange(_currentRound);
         }
     }
 

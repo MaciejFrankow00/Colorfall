@@ -6,6 +6,7 @@ public class PlayerReadyUI : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private TextMeshProUGUI _readyTMP;
+    [SerializeField] private ColorsDatabase _colorsDatabase;
 
     [SerializeField] private string _readyText = "Ready";
     [SerializeField] private string _notReadyText = "Not ready";
@@ -16,6 +17,8 @@ public class PlayerReadyUI : MonoBehaviour
 
         Gameplayer.Instance.OnGameStart += Gameplayer_OnGameStart;
         Gameplayer.Instance.OnGameStop += Gameplayer_OnGameStop;
+
+        Player_OnPlayerChange();
     }
 
     void OnDestroy()
@@ -29,6 +32,7 @@ public class PlayerReadyUI : MonoBehaviour
     private void Player_OnPlayerChange()
     {
         _readyTMP.text = _player.isReady ? _readyText : _notReadyText;
+        _readyTMP.color = _player.isReady ? _colorsDatabase.GetColor(_player.ColorId).color : Color.black;
     }
 
     private void Gameplayer_OnGameStart()

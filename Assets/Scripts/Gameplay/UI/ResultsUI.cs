@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -54,7 +55,7 @@ public class ResultsUI : MonoBehaviour
             _winnerTMP.text = $"{_winnerPrefix} {_colorsDatabase.GetColor(player.ColorId).colorName} {_winnerSuffix}";
         }
     }
-
+    
     private void MenuButton_OnClick()
     {
         if (NetworkServer.active && NetworkClient.isConnected)

@@ -12,44 +12,51 @@ public class Tile : NetworkBehaviour
     private List<GameObject> _intersectingPlayers = new();
     private bool _isDeadly = false;
 
-    [ClientRpc]
+    [Server]
     public void SetColorId(int id)
     {
         _isDeadly = false;
         _colorIndex = id;
-        _spriteRenderer.color = _colorsDatabase.GetColor(id).color;
+        RpcSetColor(_colorsDatabase.GetColor(id).color);
     }
 
-    [ClientRpc]
+    [Server]
     public void Restart()
     {
         _isDeadly = false;
         _colorIndex = -1;
-        _spriteRenderer.color = Color.white;
+        RpcSetColor(Color.white);
     }
 
     [ClientRpc]
+    private void RpcSetColor(Color color)
+    {
+        _spriteRenderer.color = color;
+    }
+
+    [Server]
     public void SetToDeadly(int exception)
     {
         if(exception == _colorIndex) return;
 
         _isDeadly = true;
 
-        _spriteRenderer.color = Color.black;
+        RpcSetColor(Color.black);
 
         for(int i = 0; i < _intersectingPlayers.Count; i++)
         {
-            _intersectingPlayers[i].GetComponent<Player>().CmdKill();
+            _intersectingPlayers[i].GetComponent<Player>().ServerKill();
         }
     }
 
+    [ServerCallback]
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(_playerTag))
         {
             if (_isDeadly)
             {
-                collision.gameObject.GetComponent<Player>().CmdKill();
+                collision.gameObject.GetComponent<Player>().ServerKill();
             }
             else
             {
@@ -58,6 +65,7 @@ public class Tile : NetworkBehaviour
         }
     }
 
+    [ServerCallback]
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag(_playerTag))

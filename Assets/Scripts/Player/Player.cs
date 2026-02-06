@@ -11,8 +11,7 @@ public class Player : NetworkBehaviour
 
     public event Action<bool> OnDeadStatusChange;
 
-    [SerializeField] private SpriteRenderer _playerSprite;
-    [SerializeField] private SpriteRenderer _deadSprite;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private ColorsDatabase _colorsDB;
 
     [SyncVar(hook = nameof(OnColorAssigned))] public int ColorId = -1;
@@ -21,7 +20,7 @@ public class Player : NetworkBehaviour
 
     private void Awake()
     {
-        _deadSprite.gameObject.SetActive(false);
+        // _deadSprite.gameObject.SetActive(false);
     }
 
     [Command]
@@ -62,15 +61,11 @@ public class Player : NetworkBehaviour
 
     private void OnColorAssigned(int oldVal, int newVal)
     {
-        _playerSprite.color = _colorsDB.GetColor(newVal).color;
-        _deadSprite.color = _colorsDB.GetColor(newVal).inactiveColor;
+        _spriteRenderer.color = _colorsDB.GetColor(newVal).color;
     }
 
     private void OnIsDeadChange(bool oldVal, bool newVal)
     {
-        _playerSprite.gameObject.SetActive(!newVal);
-        _deadSprite.gameObject.SetActive(newVal);
-
         OnDeadStatusChange?.Invoke(newVal);
 
         RpcSendData();
@@ -87,8 +82,8 @@ public class Player : NetworkBehaviour
         base.OnStartClient();
     }
 
-    [Command]
-    public void CmdKill()
+    [Server]
+    public void ServerKill()
     {
         if(isDead) return;
         isDead = true;

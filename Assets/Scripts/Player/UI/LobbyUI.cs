@@ -8,34 +8,43 @@ using UnityEngine.UI;
 public class LobbyUI : MonoBehaviour
 {
     [SerializeField] private Gameplayer _gameplayer;
-    [SerializeField] private Button _button;
+    [SerializeField] private Button _readyButton;
+    [SerializeField] private Button _exitButton;
 
     void Awake()
     {
-        _button.onClick.AddListener(OnButtonClick);
+        _readyButton.onClick.AddListener(OnReadyButtonClick);
+        _exitButton.onClick.AddListener(OnExitButtonClick);
         _gameplayer.OnGameStart += Gameplayer_OnGameStart;
         _gameplayer.OnGameStop += Gameplayer_OnGameStop;
     }
 
     void OnDestroy()
     {
-        _button.onClick.AddListener(OnButtonClick);
+        _readyButton.onClick.AddListener(OnReadyButtonClick);
+        _exitButton.onClick.AddListener(OnExitButtonClick);
         _gameplayer.OnGameStart += Gameplayer_OnGameStart;
         _gameplayer.OnGameStop += Gameplayer_OnGameStop;
     }
 
-    private void OnButtonClick()
+    private void OnReadyButtonClick()
     {
         Player.local.CmdToggleReady();
     }
 
+    private void OnExitButtonClick()
+    {
+        MainNetworkManager.singleton.StopHost();
+        MainNetworkManager.singleton.StopClient();
+    }
+
     private void Gameplayer_OnGameStart()
     {
-        _button.gameObject.SetActive(false);
+        _readyButton.gameObject.SetActive(false);
     }
 
     private void Gameplayer_OnGameStop()
     {
-        _button.gameObject.SetActive(true);
+        _readyButton.gameObject.SetActive(true);
     }
 }
